@@ -1,0 +1,8 @@
+@EndUserText.label: 'Leave Request service def'
+define service ZSD_Leave_req {
+  expose ZC_leave_req         as LeaveRequests;
+  expose ZC_leave_req_att     as Attachments;
+  expose Zc_LEAVE_REQ_STAT_F4 as Status;
+  expose ZC_LEAVE_REQ_type_F4 as RequestType;
+  expose ZC_LEAVE_REQ_app     as Approvers;
+}

@@ -1,0 +1,82 @@
+managed implementation in class zcl_i_leave_req unique;
+strict ( 2 );
+with draft;
+define behavior for zi_leave_req alias LeaveRequest
+persistent table ztab_leave_req
+draft table ztab_leave_req_d
+lock master
+total etag Lastchangeat
+early numbering
+authorization master ( instance )
+//etag master <field_name>
+{
+
+  field ( readonly ) ReqId, Persid, Status;
+  create;
+  // Triggered automatically when a new instance is created
+  determination SetInitialStatus on modify { create; }
+  determination CalculateQuota on save  { create; field Begda, Endda; }
+
+  update;
+  delete;
+  association _ReqAttachments {create;with draft;}
+
+
+  draft action Edit;
+  draft action Resume;
+  draft action Discard;
+  draft action Activate;
+  draft determine action Prepare;
+
+  mapping for ztab_leave_req
+  {
+
+    ReqId = req_id;
+    Persid = persid;
+    Begda = begda;
+    Endda = endda;
+    ReqType = req_type;
+    Text = text;
+    Approver = approver;
+    Status = status;
+    Createby = createby;
+    Createddatetime = createddatetime;
+    Lastchangeby = locallastchangedby;
+    Lastchangeat = last_changed_at;
+
+  }
+
+}
+
+
+define behavior for zi_leave_req_att alias Attachments
+implementation in class zcl_i_leave_req unique
+persistent table ztab_req_att
+draft table ztab_req_att_d
+lock dependent by _LeaveRequest
+early numbering
+etag master LastChangedAt
+authorization dependent by _LeaveRequest
+
+{
+field ( readonly ) ReqId, PersId, AttachId;
+update;
+ delete;
+ association _LeaveRequest{ with draft; }
+
+ mapping for ztab_req_att
+  {
+    ReqId = req_id;
+    Persid = persid;
+    AttachId = attach_id;
+    Attachment = attachment;
+    AttText = att_text;
+    Filename = filename;
+    Mimetype = mimetype;
+    LastChangedAt = last_changed_at;
+  }
+
+	
+}
+
+

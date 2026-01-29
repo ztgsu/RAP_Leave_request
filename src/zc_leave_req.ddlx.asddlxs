@@ -1,0 +1,139 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo:{
+
+typeName: 'Leave request',
+typeNamePlural: 'Leave requests',
+
+//title:{ value: 'title value 1' },
+description:{
+
+label: 'Manage Leave Reuests',
+type: #STANDARD,
+value: 'TypeDesc'
+}
+}
+annotate entity ZC_leave_req with
+{
+  @UI.facet: [{
+  id:'Collection',
+  purpose: #STANDARD,
+  type: #COLLECTION,
+  label: 'General Information'
+   },
+   {
+
+   id:'BasicInfo',
+   purpose: #STANDARD,
+   parentId: 'Collection',
+   position: 10,
+   targetQualifier: 'TimeGroup',
+   type: #FIELDGROUP_REFERENCE,
+   label: 'Request time'
+   },
+   {
+
+   id: 'AppInfo',
+   purpose: #STANDARD,
+   parentId: 'Collection',
+   position: 20,
+   targetQualifier: 'AppGroup',
+   type: #FIELDGROUP_REFERENCE,
+   label: 'Approver'
+   },
+    {
+
+   id: 'Others',
+   purpose: #STANDARD,
+   parentId: 'Collection',
+   position: 30,
+   targetQualifier: 'Others',
+   type: #FIELDGROUP_REFERENCE,
+   label: 'Additional Info'
+   },
+
+   {
+
+   id:'Attachments',
+   purpose: #STANDARD,
+   type: #LINEITEM_REFERENCE,
+   position: 20,
+   targetElement: '_ReqAttachments',
+   label: 'Attachments'
+   },
+
+   {
+
+   id:'Header1',
+   purpose: #HEADER,
+   type: #DATAPOINT_REFERENCE,
+   targetQualifier: 'Reqid',
+   position: 10
+   },
+   {
+
+   id:'Header2',
+   purpose: #HEADER,
+   type: #DATAPOINT_REFERENCE,
+   targetQualifier: 'Status',
+   position: 20
+   },
+   {
+
+   id:'Header3',
+   purpose: #HEADER,
+   type: #DATAPOINT_REFERENCE,
+   targetQualifier: 'QuotaRem',
+   position: 30
+   },
+   {
+
+   id:'Header4',
+   purpose: #HEADER,
+   type: #DATAPOINT_REFERENCE,
+   targetQualifier: 'QuotaTot',
+   position: 40
+   }
+   ]
+
+  @UI.dataPoint:{ title: 'Request Id',qualifier: 'Reqid' }
+  @UI.lineItem: [{ position: 10, label: 'Request Id', importance: #HIGH }]
+  ReqId;
+  @UI.lineItem: [{ position: 20, label: 'Leave start', importance: #HIGH }]
+  @UI.selectionField: [{ position: 10 }]
+  // @UI.fieldGroup: [{ position: 30, label: 'Leave Begin',qualifier: 'BasicGroup' }]
+  @UI.fieldGroup: [{ position: 10, label: 'Leave start',qualifier: 'TimeGroup' }]
+  Begda;
+  @UI.lineItem: [{ position: 30, label: 'Leave end', importance: #HIGH }]
+  @UI.selectionField: [{ position: 20 }]
+  // @UI.fieldGroup: [{ position: 40, label: 'Leave End',qualifier: 'BasicGroup' }]
+  @UI.fieldGroup: [{ position: 20, label: 'Leave end',qualifier: 'TimeGroup' }]
+  Endda;
+  @UI.lineItem: [{ position: 35, label: 'Total Days', importance: #HIGH }]
+  // @UI.fieldGroup: [{ position: 40, label: 'Leave End',qualifier: 'BasicGroup' }]
+  @UI.fieldGroup: [{ position: 30, label: 'Total Days',qualifier: 'TimeGroup' }]
+  TotalDays;
+  @UI.lineItem: [{ position: 40, label: 'Leave type', importance: #HIGH }]
+  @UI.selectionField: [{ position: 30 }]
+  @UI.fieldGroup: [{ position: 40, label: 'Request Type',qualifier: 'TimeGroup' }]
+  ReqType;
+  @UI.lineItem: [{ position: 50, label: 'Description' }]
+  @UI.fieldGroup: [{ position: 10, label: 'Text',qualifier: 'Others' }]
+  @UI.multiLineText: true
+  Text;
+  @UI.fieldGroup: [{ position: 10, label: 'Approver',qualifier: 'AppGroup' }]
+  @UI.lineItem: [{ position: 60, label: 'Approver' }]
+  Approver;
+  @UI.lineItem: [{ position: 70, label: 'Status', importance: #HIGH }]
+  @UI.selectionField: [{ position: 40 }]
+  @UI.dataPoint:{ title: 'Request Id',qualifier: 'Status' }
+  Status;
+  @UI.dataPoint:{ title: 'Remaining Quota',qualifier: 'QuotaRem' }
+  QuotaRem;
+  @UI.dataPoint:{ title: 'Total Quota',qualifier: 'QuotaTot' }
+  QuotaTotal;
+  @UI.dataPoint:{ title: 'Creation Date',qualifier: 'OrderDate' }
+  Createddatetime;
+  /* Associations */
+
+}
