@@ -11,12 +11,14 @@ authorization master ( instance )
 //etag master <field_name>
 {
 
-  field ( readonly ) ReqId, Persid, Status;
-  create;
+ // Feature control for Status field and actions
+  field ( features : instance ) Status, Begda, Endda, ReqType;
+  field ( readonly ) ReqId, Persid;
+
   // Triggered automatically when a new instance is created
   determination SetInitialStatus on modify { create; }
-  determination CalculateQuota on save  { create; field Begda, Endda; }
 
+  create;
   update;
   delete;
   association _ReqAttachments {create;with draft;}
@@ -27,6 +29,11 @@ authorization master ( instance )
   draft action Discard;
   draft action Activate;
   draft determine action Prepare;
+
+  // Custom actions with feature control
+  action CopyLeaveRequest result [1] $self;
+  action ( features : instance ) SendToApproval result [1] $self;
+  action ( features : instance ) WithdrawApproval result [1] $self;
 
   mapping for ztab_leave_req
   {
@@ -78,5 +85,3 @@ update;
 
 	
 }
-
-

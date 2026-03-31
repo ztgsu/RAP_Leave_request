@@ -13,10 +13,7 @@ association[1] to ZI_LEAVE_REQ_Type_F4 as _ReqType
               on $projection.ReqType = _ReqType.Value
 association[1] to ZI_leave_req_app as _ReqApp
               on $projection.Approver = _ReqApp.Approver
-association[1] to ZI_LEAVE_QUOTA as _LeaveQuota
-              on $projection.Persid = _LeaveQuota.Pernr
-             and $projection.ReqType = _LeaveQuota.ReqType  
-              
+             
 {
     key req_id as ReqId,
     key persid as Persid,
@@ -26,8 +23,6 @@ association[1] to ZI_LEAVE_QUOTA as _LeaveQuota
     text as Text,
     approver as Approver,
     status as Status,
-    _LeaveQuota.QuotaRem as QuotaRem,
-    _LeaveQuota.QuotaTotal as QuotaTotal,
     @Semantics.user.createdBy: true
     createby as Createby,
     @Semantics.systemDateTime.createdAt: true
@@ -39,6 +34,5 @@ association[1] to ZI_LEAVE_QUOTA as _LeaveQuota
     _ReqAttachments,
     _ReqStat,
     _ReqType,
-    _ReqApp,
-    _LeaveQuota
+    _ReqApp
 }

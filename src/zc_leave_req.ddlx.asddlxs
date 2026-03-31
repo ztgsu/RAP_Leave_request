@@ -93,11 +93,23 @@ annotate entity ZC_leave_req with
    type: #DATAPOINT_REFERENCE,
    targetQualifier: 'QuotaTot',
    position: 40
+   },
+   {
+
+   id:'Header5',
+   purpose: #HEADER,
+   type: #DATAPOINT_REFERENCE,
+   targetQualifier: 'QuotaAfterRequest',
+   position: 50
    }
    ]
 
   @UI.dataPoint:{ title: 'Request Id',qualifier: 'Reqid' }
-  @UI.lineItem: [{ position: 10, label: 'Request Id', importance: #HIGH }]
+  @UI.lineItem: [{ position: 10, label: 'Request Id', importance: #HIGH },
+  { type: #FOR_ACTION, dataAction: 'WithdrawApproval', label: 'Withdraw' },
+  { type: #FOR_ACTION, dataAction: 'SendToApproval', label: 'Send to Approval' },
+  { type: #FOR_ACTION, dataAction: 'CopyLeaveRequest', label: 'Copy' }
+   ]
   ReqId;
   @UI.lineItem: [{ position: 20, label: 'Leave start', importance: #HIGH }]
   @UI.selectionField: [{ position: 10 }]
@@ -132,6 +144,8 @@ annotate entity ZC_leave_req with
   QuotaRem;
   @UI.dataPoint:{ title: 'Total Quota',qualifier: 'QuotaTot' }
   QuotaTotal;
+  @UI.dataPoint:{ title: 'Quota After Request',qualifier: 'QuotaAfterRequest', criticality: 'QuotaCriticality' }
+  QuotaAfterRequest;
   @UI.dataPoint:{ title: 'Creation Date',qualifier: 'OrderDate' }
   Createddatetime;
   /* Associations */

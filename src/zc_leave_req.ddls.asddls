@@ -27,14 +27,19 @@ virtual   TotalDays : abap.int4,
           @ObjectModel.text.element: ['StatDesc']
           Status,
           _ReqStat.Description as StatDesc,
-           QuotaTotal,
-           QuotaRem,
+           @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_LEAVE_DAYS'
+  virtual QuotaTotal : abap.int4,
+           @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_LEAVE_DAYS'
+  virtual QuotaRem : abap.int4,
+  @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_LEAVE_DAYS'
+  virtual QuotaAfterRequest : abap.int4,  // What quota will be after this request
+  @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_LEAVE_DAYS'
+  virtual QuotaCriticality : abap.int1,
           Createby,
           Createddatetime,
           /* Associations */
           _ReqAttachments : redirected to composition child ZC_leave_req_att,
           _ReqStat,
           _ReqType,
-          _ReqApp,
-          _LeaveQuota
+          _ReqApp
 }

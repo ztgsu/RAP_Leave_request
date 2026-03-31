@@ -11,8 +11,9 @@ define behavior for ZC_leave_req alias LeaveRequest
   use association _ReqAttachments { create; with draft; }
 
   side effects {
-  field begda  affects field TotalDays;
-  field endda   affects field TotalDays;
+  field begda  affects field TotalDays, field QuotaAfterRequest, field QuotaCriticality;
+  field endda   affects field TotalDays, field QuotaAfterRequest, field QuotaCriticality;
+  field ReqType   affects field QuotaTotal, field QuotaRem, field QuotaAfterRequest, field QuotaCriticality;
 }
 
   use action Edit;
@@ -20,6 +21,10 @@ define behavior for ZC_leave_req alias LeaveRequest
   use action Discard;
   use action Resume;
   use action Prepare;
+
+  use action SendToApproval;
+  use action CopyLeaveRequest;
+  use action WithdrawApproval;
 }
 
 
